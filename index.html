@@ -26,6 +26,8 @@
       box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
       background: transparent;
       display: block;
+      touch-action: manipulation;
+      user-select: none;
     }
 
     :root {
@@ -93,6 +95,26 @@
       outline-offset: 3px;
     }
 
+    #jumpBtn {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      font-size: 1rem;
+      padding: 0.85rem 1.2rem;
+      border-radius: 18px;
+      z-index: 1000;
+      background: linear-gradient(135deg, #0f766e 0%, #22c55e 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    #jumpBtn:hover {
+      background: #1f2937;
+    }
+
     .game-frame {
       position: relative;
       width: 100%;
@@ -104,6 +126,7 @@
       background: #ffffff;
       box-shadow: 0 30px 60px rgba(15, 23, 42, 0.09);
       padding: 16px;
+      touch-action: manipulation;
     }
 
 
@@ -175,6 +198,10 @@
         width: 100%;
       }
 
+      #jumpBtn {
+        width: auto;
+      }
+
       .status {
         flex-direction: column;
         align-items: flex-start;
@@ -222,250 +249,40 @@
         <rect width="360" height="160" fill="#e8f4ff"/>
         <rect x="0" y="140" width="360" height="2" fill="#0f172a"/>
 
-        <!-- ===== T-REX ===== -->
-        <g id="player" transform="translate(40 108) scale(0.5)" fill="#111827">
-          <g transform="translate(20 8)">
-            <rect x="0" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="0" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="0" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="2" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="2" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="2" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="4" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="4" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="4" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="6" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="6" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="6" y="56" width="2" height="2" fill="#111827"/>
-            <rect x="8" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="8" y="56" width="2" height="2" fill="#111827"/>
-            <rect x="10" y="56" width="2" height="2" fill="#111827"/>
-            <rect x="10" y="58" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="58" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="28" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="28" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="26" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="26" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="8" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="10" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="12" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="14" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="16" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="56" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="60" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="60" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="58" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="60" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="18" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="26" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="26" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="26" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="28" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="28" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="30" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="34" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="32" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="38" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="36" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="12" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="40" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="20" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="22" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="24" y="54" width="2" height="2" fill="#111827"/>
-            <rect x="26" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="52" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="50" width="2" height="2" fill="#111827"/>
-            <rect x="34" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="36" y="48" width="2" height="2" fill="#111827"/>
-            <rect x="38" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="20" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="52" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="54" y="22" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="50" y="24" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="46" y="40" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="42" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="44" width="2" height="2" fill="#111827"/>
-            <rect x="44" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="42" y="46" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="56" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="58" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="60" width="2" height="2" fill="#111827"/>
-            <rect x="18" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="16" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="14" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="56" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="58" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="60" width="2" height="2" fill="#111827"/>
-            <rect x="28" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="30" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="32" y="62" width="2" height="2" fill="#111827"/>
-            <rect x="48" y="12" width="2" height="2" fill="#f8fafc"/>
-            <rect x="50" y="12" width="2" height="2" fill="#f8fafc"/>
-            <rect x="48" y="14" width="2" height="2" fill="#f8fafc"/>
-            <rect x="50" y="14" width="2" height="2" fill="#f8fafc"/>
-            <rect x="49" y="13" width="2" height="2" fill="#5a5a5a"/>
+        <!-- ===== KOČKA ===== -->
+        <g id="player" transform="translate(40 96) scale(0.45)">
+          <path id="tail" d="M6 62 C-6 48 -4 22 12 12" stroke="#f59e0b" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M8 40 C2 24 8 12 18 8" stroke="#b45309" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="40" cy="62" rx="27" ry="19" fill="#f59e0b"/>
+          <ellipse cx="39" cy="61" rx="22" ry="15" fill="#fb923c" opacity="0.72"/>
+          <circle cx="42" cy="27" r="17" fill="#f59e0b"/>
+          <polygon points="27,20 33,3 39,22" fill="#f59e0b"/>
+          <polygon points="46,22 52,4 58,22" fill="#f59e0b"/>
+          <polygon points="31,18 34,10 37,19" fill="#7c2d12"/>
+          <polygon points="49,19 52,11 55,19" fill="#7c2d12"/>
+          <path d="M41 12 l5 6 l-4 3" stroke="#8b5a2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="37" cy="27" r="2.5" fill="#111827"/>
+          <circle cx="49" cy="27" r="2.5" fill="#111827"/>
+          <circle cx="36" cy="26" r="1" fill="#ffffff" opacity="0.9"/>
+          <circle cx="48" cy="26" r="1" fill="#ffffff" opacity="0.9"/>
+          <path d="M40 33 q3 4 6 0" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M39 31 l4 3 l4 -3" fill="#7c2d12"/>
+          <circle cx="31" cy="33" r="3" fill="#fb7185" opacity="0.55"/>
+          <circle cx="55" cy="33" r="3" fill="#fb7185" opacity="0.55"/>
+          <line x1="28" y1="32" x2="16" y2="30" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="28" y1="36" x2="15" y2="38" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="56" y1="32" x2="68" y2="30" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="56" y1="36" x2="69" y2="38" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M26 49 l10 -6" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M37 46 l12 -7" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M34 57 l11 0" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/>
+          <g id="front-leg">
+            <rect x="30" y="75" width="7" height="16" rx="3.5" fill="#f59e0b"/>
+            <ellipse cx="33.5" cy="92" rx="5" ry="2.8" fill="#d97706"/>
+          </g>
+          <g id="back-leg">
+            <rect x="50" y="73" width="7" height="18" rx="3.5" fill="#f59e0b"/>
+            <ellipse cx="53.5" cy="92" rx="5" ry="2.8" fill="#d97706"/>
           </g>
         </g>
 
@@ -474,6 +291,7 @@
         <rect x="0" y="140" width="360" height="2" fill="#5a5a5a"/>
       </svg>
       </div>
+      <button id="jumpBtn" type="button">SKOK</button>
       <div id="instructions" class="visually-hidden" aria-live="polite">Stiskni mezerník nebo šipku nahoru pro skok. Drž šipku dolů pro dřep. Stiskni R pro restart.</div>
 
     <div id="status-message" class="status" role="status" aria-live="polite" aria-atomic="true">
@@ -493,61 +311,161 @@
       const instructions = document.getElementById('instructions');
       const restartButton = document.getElementById('restart');
 
+      function handlePressJump(event) {
+        event.preventDefault();
+        gameWindow.focus();
+        if (gameOver) {
+          reset();
+          return;
+        }
+        jump();
+      }
+
       const SVG_NS = 'http://www.w3.org/2000/svg';
       const WIDTH = 360;
       const HEIGHT = 160;
       const FLOOR = 140;
       const PLAYER_X = 40;
-      const PLAYER_BASE_Y = 104;
-      const PLAYER_SCREEN_X = 40;
-      const PLAYER_COLLIDE_WIDTH = 32;
-      const PLAYER_COLLIDE_HEIGHT = 28;
-      const PLAYER_BASE_TRANSFORM = `translate(${PLAYER_X} ${PLAYER_BASE_Y}) scale(0.5)`;
+      const PLAYER_BASE_Y = 96;
+      const PLAYER_SCALE = 0.45;
+      const PLAYER_SCREEN_X = 50;
+      const PLAYER_COLLIDE_WIDTH = 24;
+      const PLAYER_COLLIDE_HEIGHT = 34;
+      const PLAYER_BASE_TRANSFORM = `translate(${PLAYER_X} ${PLAYER_BASE_Y}) scale(${PLAYER_SCALE})`;
 
       let running = true;
       let started = false;
       let gameOver = false;
       let score = 0;
       let hiScore = 0;
-      let speed = 120;
+      let speed = 155;
       let lastTime = performance.now();
       let spawnTimer = 0;
-      let nextSpawn = 1400;
+      let nextSpawn = 1050;
       const obstacles = [];
       const keys = new Set();
       let playerY = 0;
       let playerVy = 0;
       let playerOnGround = true;
       let playerCrouch = false;
+      let runCycle = 0;
 
-      function createObstacle(height) {
-        const group = document.createElementNS(SVG_NS, 'g');
+      function appendCactus(group, offsetX, height, palette) {
+        const cactusWidth = 8 + Math.round(height / 8);
+        const armY = FLOOR - height + 7;
+        const armHeight = Math.max(6, Math.round(height * 0.24));
+
         const body = document.createElementNS(SVG_NS, 'rect');
-        body.setAttribute('x', '0');
+        body.setAttribute('x', String(offsetX));
         body.setAttribute('y', String(FLOOR - height));
-        body.setAttribute('width', '10');
+        body.setAttribute('width', String(cactusWidth));
         body.setAttribute('height', String(height));
-        body.setAttribute('fill', '#111827');
+        body.setAttribute('rx', '2.5');
+        body.setAttribute('fill', palette.main);
+
+        const bodyShade = document.createElementNS(SVG_NS, 'rect');
+        bodyShade.setAttribute('x', String(offsetX + cactusWidth - 3));
+        bodyShade.setAttribute('y', String(FLOOR - height + 2));
+        bodyShade.setAttribute('width', '2');
+        bodyShade.setAttribute('height', String(Math.max(6, height - 4)));
+        bodyShade.setAttribute('rx', '1');
+        bodyShade.setAttribute('fill', palette.shade);
 
         const armLeft = document.createElementNS(SVG_NS, 'rect');
-        armLeft.setAttribute('x', '-2');
-        armLeft.setAttribute('y', String(FLOOR - height - 6));
+        armLeft.setAttribute('x', String(offsetX - 3));
+        armLeft.setAttribute('y', String(armY));
         armLeft.setAttribute('width', '4');
-        armLeft.setAttribute('height', '6');
-        armLeft.setAttribute('fill', '#111827');
+        armLeft.setAttribute('height', String(armHeight));
+        armLeft.setAttribute('rx', '2');
+        armLeft.setAttribute('fill', palette.main);
+
+        const armLeftTop = document.createElementNS(SVG_NS, 'rect');
+        armLeftTop.setAttribute('x', String(offsetX - 6));
+        armLeftTop.setAttribute('y', String(armY));
+        armLeftTop.setAttribute('width', '6');
+        armLeftTop.setAttribute('height', '4');
+        armLeftTop.setAttribute('rx', '2');
+        armLeftTop.setAttribute('fill', palette.main);
 
         const armRight = document.createElementNS(SVG_NS, 'rect');
-        armRight.setAttribute('x', '8');
-        armRight.setAttribute('y', String(FLOOR - height - 8));
+        armRight.setAttribute('x', String(offsetX + cactusWidth - 1));
+        armRight.setAttribute('y', String(armY - 4));
         armRight.setAttribute('width', '4');
-        armRight.setAttribute('height', '8');
-        armRight.setAttribute('fill', '#111827');
+        armRight.setAttribute('height', String(Math.max(7, armHeight + 2)));
+        armRight.setAttribute('rx', '2');
+        armRight.setAttribute('fill', palette.highlight);
 
-        group.appendChild(body);
+        const armRightTop = document.createElementNS(SVG_NS, 'rect');
+        armRightTop.setAttribute('x', String(offsetX + cactusWidth + 1));
+        armRightTop.setAttribute('y', String(armY - 4));
+        armRightTop.setAttribute('width', '6');
+        armRightTop.setAttribute('height', '4');
+        armRightTop.setAttribute('rx', '2');
+        armRightTop.setAttribute('fill', palette.highlight);
+
+        const spikes = [4, Math.round(height * 0.45), Math.round(height * 0.78)];
+        spikes.forEach((segment) => {
+          const spineLeft = document.createElementNS(SVG_NS, 'line');
+          spineLeft.setAttribute('x1', String(offsetX + 2));
+          spineLeft.setAttribute('y1', String(FLOOR - segment));
+          spineLeft.setAttribute('x2', String(offsetX - 1));
+          spineLeft.setAttribute('y2', String(FLOOR - segment - 2));
+          spineLeft.setAttribute('stroke', palette.spine);
+          spineLeft.setAttribute('stroke-width', '1');
+          spineLeft.setAttribute('stroke-linecap', 'round');
+
+          const spineRight = document.createElementNS(SVG_NS, 'line');
+          spineRight.setAttribute('x1', String(offsetX + cactusWidth - 2));
+          spineRight.setAttribute('y1', String(FLOOR - segment + 1));
+          spineRight.setAttribute('x2', String(offsetX + cactusWidth + 1));
+          spineRight.setAttribute('y2', String(FLOOR - segment - 1));
+          spineRight.setAttribute('stroke', palette.spine);
+          spineRight.setAttribute('stroke-width', '1');
+          spineRight.setAttribute('stroke-linecap', 'round');
+
+          group.appendChild(spineLeft);
+          group.appendChild(spineRight);
+        });
+
         group.appendChild(armLeft);
+        group.appendChild(armLeftTop);
         group.appendChild(armRight);
+        group.appendChild(armRightTop);
+        group.appendChild(body);
+        group.appendChild(bodyShade);
 
-        return group;
+        return cactusWidth;
+      }
+
+      function createObstacle() {
+        const palettes = [
+          { main: '#2f9e44', highlight: '#4ade80', shade: '#1f7a34', spine: '#14532d' },
+          { main: '#16a34a', highlight: '#86efac', shade: '#166534', spine: '#14532d' },
+          { main: '#22c55e', highlight: '#bbf7d0', shade: '#15803d', spine: '#166534' }
+        ];
+        const variants = [
+          [18],
+          [22],
+          [18, 22],
+          [22, 18]
+        ];
+        const heights = variants[Math.floor(Math.random() * variants.length)];
+        const group = document.createElementNS(SVG_NS, 'g');
+        let cursorX = 0;
+        let maxHeight = 0;
+
+        heights.forEach((height, index) => {
+          const palette = palettes[(Math.floor(Math.random() * palettes.length) + index) % palettes.length];
+          const width = appendCactus(group, cursorX, height, palette);
+          cursorX += width + (heights.length > 1 ? 5 : 0);
+          maxHeight = Math.max(maxHeight, height);
+        });
+
+        return {
+          element: group,
+          width: Math.max(10, cursorX - (heights.length > 1 ? 5 : 0)),
+          height: maxHeight
+        };
       }
 
       function updateObstacleElement(obstacle) {
@@ -555,17 +473,16 @@
       }
 
       function spawnObstacle() {
-        const height = Math.random() > 0.6 ? 22 : 16;
-        const element = createObstacle(height);
+        const obstacleShape = createObstacle();
         const obstacle = {
           x: WIDTH + 20,
           y: FLOOR,
-          w: 10,
-          h: height,
-          element
+          w: obstacleShape.width,
+          h: obstacleShape.height,
+          element: obstacleShape.element
         };
 
-        obstaclesGroup.appendChild(element);
+        obstaclesGroup.appendChild(obstacle.element);
         obstacles.push(obstacle);
         updateObstacleElement(obstacle);
       }
@@ -575,14 +492,15 @@
         started = false;
         gameOver = false;
         score = 0;
-        speed = 120;
+        speed = 155;
         spawnTimer = 0;
-        nextSpawn = 1400;
+        nextSpawn = 1050;
         obstacles.length = 0;
         playerY = 0;
         playerVy = 0;
         playerOnGround = true;
         playerCrouch = false;
+        runCycle = 0;
         while (obstaclesGroup.firstChild) {
           obstaclesGroup.removeChild(obstaclesGroup.firstChild);
         }
@@ -627,7 +545,7 @@
 
         playerCrouch = keys.has('ArrowDown') && playerOnGround;
 
-        playerVy += 0.35;
+        playerVy += playerVy > 0 ? 1.05 : 0.7;
         playerY += playerVy;
 
         if (playerY >= 0) {
@@ -649,7 +567,7 @@
           spawnTimer += dt * 1000;
           if (spawnTimer > nextSpawn) {
             spawnTimer = 0;
-            nextSpawn = 1200 + Math.random() * 800;
+            nextSpawn = 900 + Math.random() * 500;
             spawnObstacle();
           }
         }
@@ -670,13 +588,26 @@
         }
 
         if (started && !gameOver) {
-          score += Math.floor(dt * 130);
+          score += Math.floor(dt * 165);
           announceScore();
+        }
+
+        if (started && playerOnGround && !gameOver) {
+          runCycle += dt * 12;
         }
       }
 
       function render() {
         player.setAttribute('transform', `${PLAYER_BASE_TRANSFORM} translate(0 ${playerY})`);
+        const frontLeg = document.getElementById('front-leg');
+        const backLeg = document.getElementById('back-leg');
+        const tail = document.getElementById('tail');
+        const legOffset = playerOnGround && started && !gameOver ? Math.sin(runCycle) * 3 : 0;
+        const tailSwing = playerOnGround && started && !gameOver ? Math.sin(runCycle * 0.9) * 2.5 : -1.5;
+
+        frontLeg.setAttribute('transform', `translate(0 ${legOffset})`);
+        backLeg.setAttribute('transform', `translate(0 ${-legOffset})`);
+        tail.setAttribute('transform', `rotate(${tailSwing} 12 16)`);
       }
 
       function loop(timestamp) {
@@ -698,7 +629,7 @@
           updateStatus('Hra běží. Hodně štěstí!');
         }
         if (playerOnGround) {
-          playerVy = -14;
+          playerVy = -14.5;
           playerOnGround = false;
           updateStatus('Skáčeš!');
         }
@@ -721,7 +652,15 @@
         keys.delete(event.code);
       });
 
+      const jumpButton = document.getElementById('jumpBtn');
+      jumpButton.addEventListener('click', jump);
+      jumpButton.addEventListener('pointerdown', handlePressJump);
+
       restartButton.addEventListener('click', reset);
+      restartButton.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        reset();
+      });
 
       gameWindow.addEventListener('click', () => {
         gameWindow.focus();
@@ -729,6 +668,8 @@
           reset();
         }
       });
+
+      gameWindow.addEventListener('pointerdown', handlePressJump);
 
       gameWindow.addEventListener('focus', () => {
         gameWindow.style.outline = '3px solid #93c5fd';

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google T-Rex + kaktusy</title>
+  <title>Eliška &amp; Hermínka vs. Kaktusy 🌵</title>
   <style>
     body {
       margin: 0;
@@ -19,7 +19,8 @@
       width: 100%;
       max-width: 100%;
       height: auto;
-      max-height: calc(100vh - 180px);
+      max-height: calc(100vh - 130px);
+      min-height: 380px;
       image-rendering: pixelated;
       shape-rendering: crispEdges;
       border-radius: 18px;
@@ -41,7 +42,7 @@
     }
 
     .page {
-      max-width: 720px;
+      max-width: 980px;
       width: min(100%, 100vw);
       background: transparent;
       border: none;
@@ -61,6 +62,38 @@
       margin-bottom: 10px;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .audio-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .audio-controls label {
+      font-size: 0.72rem;
+      color: #334155;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .audio-controls input[type="range"] {
+      width: 62px;
+      accent-color: #16a34a;
+    }
+
     h1 {
       margin: 0;
       font-size: 1.25rem;
@@ -70,8 +103,8 @@
     p {
       margin: 0;
       color: #475569;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.82rem;
+      line-height: 1.4;
     }
 
     button {
@@ -79,7 +112,7 @@
       background: linear-gradient(135deg, #0f766e 0%, #22c55e 100%);
       color: #ffffff;
       font: inherit;
-      padding: 0.95rem 1.2rem;
+      padding: 0.78rem 1rem;
       border-radius: 16px;
       cursor: pointer;
       box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
@@ -118,14 +151,14 @@
     .game-frame {
       position: relative;
       width: 100%;
-      max-width: 720px;
-      margin: 12px auto;
+      max-width: 980px;
+      margin: 8px auto;
       border: 1px solid rgba(15, 23, 42, 0.08);
       border-radius: 28px;
       overflow: hidden;
       background: #ffffff;
       box-shadow: 0 30px 60px rgba(15, 23, 42, 0.09);
-      padding: 16px;
+      padding: 12px;
       touch-action: manipulation;
     }
 
@@ -186,12 +219,16 @@
       }
 
       .game-frame {
-        padding: 14px;
+        padding: 10px;
       }
 
       header {
         flex-direction: column;
         align-items: stretch;
+      }
+
+      .header-actions {
+        justify-content: space-between;
       }
 
       button {
@@ -227,8 +264,8 @@
 
       svg {
         width: 100%;
-        min-height: 280px;
-        max-height: calc(100vh - 210px);
+        min-height: 320px;
+        max-height: calc(100vh - 170px);
       }
 
       h1 {
@@ -255,10 +292,17 @@
     <main>
       <header aria-labelledby="game-title">
         <div>
-          <h1 id="game-title">T-Rex Runner</h1>
+          <h1 id="game-title">Eliška &amp; Hermínka vs. Kaktusy 🌵</h1>
           <p>Skákej přes kaktusy. Ovládání: Space nebo ↑ pro skok, ↓ pro dřep, R pro restart.</p>
         </div>
-        <button id="restart" type="button">Restart</button>
+        <div class="header-actions">
+          <div class="audio-controls">
+            <button id="soundToggle" type="button" aria-pressed="false">Zvuk zapnut</button>
+            <label for="volumeControl">Volume</label>
+            <input id="volumeControl" type="range" min="0" max="100" value="45" />
+          </div>
+          <button id="restart" type="button">Restart</button>
+        </div>
       </header>
 
       <div class="game-frame">
@@ -266,6 +310,135 @@
           <title id="svg-title">T-Rex běhací hra</title>
           <desc id="svg-desc">Skákej přes kaktusy pomocí mezerníku nebo šipky nahoru; dolů pro dřep; R pro restart.</desc>
         <rect width="360" height="160" fill="#e8f4ff"/>
+        <g id="sky-decor" opacity="0.78">
+          <circle id="sun" cx="295" cy="26" r="13" fill="#fde68a" opacity="0.9"/>
+          <g id="cloud" opacity="0">
+            <ellipse cx="284" cy="28" rx="16" ry="8" fill="#e5eef8"/>
+            <ellipse cx="297" cy="25" rx="13" ry="7" fill="#edf4fb"/>
+            <ellipse cx="307" cy="29" rx="11" ry="6" fill="#dbe7f4"/>
+          </g>
+          <path id="lightning" d="M296 36 l-5 10 h5 l-4 11 l10 -14 h-5 l4 -7 z" fill="#fde047" opacity="0"/>
+          <g id="rain" opacity="0">
+            <line x1="276" y1="40" x2="272" y2="52" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="286" y1="42" x2="282" y2="54" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="296" y1="40" x2="292" y2="53" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="306" y1="42" x2="302" y2="55" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="316" y1="40" x2="312" y2="53" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+          <g id="rainbow" opacity="0">
+            <path d="M250 62 a34 34 0 0 1 68 0" fill="none" stroke="#f9a8d4" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+            <path d="M255 62 a29 29 0 0 1 58 0" fill="none" stroke="#fdba74" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+            <path d="M260 62 a24 24 0 0 1 48 0" fill="none" stroke="#fde68a" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+            <path d="M265 62 a19 19 0 0 1 38 0" fill="none" stroke="#86efac" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+            <path d="M270 62 a14 14 0 0 1 28 0" fill="none" stroke="#93c5fd" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+          </g>
+        </g>
+        <g id="bg-far">
+          <g id="bg-far-a">
+            <path d="M0 122 C28 106 52 100 76 109 C98 117 120 118 145 106 C170 94 198 94 225 106 C252 118 282 119 307 108 C326 100 344 101 360 107 L360 140 L0 140 Z" fill="#cadcbf" opacity="0.58"/>
+            <path d="M0 128 C20 120 48 116 74 123 C99 130 124 129 150 121 C174 113 202 114 228 122 C254 130 280 131 309 122 C329 116 346 116 360 119 L360 140 L0 140 Z" fill="#dcead2" opacity="0.9"/>
+            <g opacity="0.72">
+              <rect x="58" y="111" width="14" height="10" rx="1.5" fill="#f6d6d6"/>
+              <polygon points="55,111 65,104 75,111" fill="#d6b4b4"/>
+              <rect x="62" y="116" width="3" height="5" fill="#ffffff" opacity="0.85"/>
+              <rect x="202" y="110" width="16" height="11" rx="1.5" fill="#d7e7f5"/>
+              <polygon points="199,110 210,102 221,110" fill="#b9cada"/>
+              <rect x="206" y="115" width="3" height="6" fill="#ffffff" opacity="0.85"/>
+              <circle cx="138" cy="119" r="5" fill="#c7dcb8"/>
+              <circle cx="144" cy="120" r="4" fill="#b6d1a8"/>
+              <circle cx="322" cy="118" r="5" fill="#cadab8"/>
+              <circle cx="328" cy="119" r="4" fill="#b8d0a7"/>
+            </g>
+          </g>
+          <g id="bg-far-b">
+            <path d="M0 122 C28 106 52 100 76 109 C98 117 120 118 145 106 C170 94 198 94 225 106 C252 118 282 119 307 108 C326 100 344 101 360 107 L360 140 L0 140 Z" fill="#cadcbf" opacity="0.58"/>
+            <path d="M0 128 C20 120 48 116 74 123 C99 130 124 129 150 121 C174 113 202 114 228 122 C254 130 280 131 309 122 C329 116 346 116 360 119 L360 140 L0 140 Z" fill="#dcead2" opacity="0.9"/>
+            <g opacity="0.72">
+              <rect x="58" y="111" width="14" height="10" rx="1.5" fill="#f6d6d6"/>
+              <polygon points="55,111 65,104 75,111" fill="#d6b4b4"/>
+              <rect x="62" y="116" width="3" height="5" fill="#ffffff" opacity="0.85"/>
+              <rect x="202" y="110" width="16" height="11" rx="1.5" fill="#d7e7f5"/>
+              <polygon points="199,110 210,102 221,110" fill="#b9cada"/>
+              <rect x="206" y="115" width="3" height="6" fill="#ffffff" opacity="0.85"/>
+              <circle cx="138" cy="119" r="5" fill="#c7dcb8"/>
+              <circle cx="144" cy="120" r="4" fill="#b6d1a8"/>
+              <circle cx="322" cy="118" r="5" fill="#cadab8"/>
+              <circle cx="328" cy="119" r="4" fill="#b8d0a7"/>
+            </g>
+          </g>
+        </g>
+        <g id="bg-near">
+          <g id="bg-near-a">
+            <path d="M0 131 C30 126 56 123 86 129 C118 136 150 136 182 128 C215 120 247 121 280 129 C313 138 338 137 360 132 L360 140 L0 140 Z" fill="#b8d8b4" opacity="0.76"/>
+            <path d="M12 129 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M52 132 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M102 130 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M156 133 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M214 130 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M274 132 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M324 129 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <g opacity="0.82">
+              <circle cx="26" cy="131" r="3.8" fill="#a9c99a"/>
+              <circle cx="31" cy="132" r="3.2" fill="#98bd8c"/>
+              <circle cx="35" cy="131" r="3.4" fill="#b6d7aa"/>
+              <circle cx="120" cy="133" r="3.6" fill="#a6c595"/>
+              <circle cx="124" cy="131" r="3" fill="#92b985"/>
+              <circle cx="128" cy="133" r="3.4" fill="#b3d0a4"/>
+              <circle cx="238" cy="132" r="4" fill="#a8ca9c"/>
+              <circle cx="243" cy="131" r="3.2" fill="#96bd88"/>
+              <circle cx="248" cy="133" r="3.4" fill="#b7d8aa"/>
+            </g>
+            <g opacity="0.8">
+              <line x1="76" y1="133" x2="76" y2="127" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="73" cy="127" r="1.8" fill="#f7c6d9"/>
+              <circle cx="79" cy="127" r="1.8" fill="#ffe29a"/>
+              <circle cx="76" cy="124.5" r="1.8" fill="#c9b6f2"/>
+              <line x1="173" y1="134" x2="173" y2="128" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="170" cy="128" r="1.7" fill="#ffd0b0"/>
+              <circle cx="176" cy="128" r="1.7" fill="#f8bfd0"/>
+              <circle cx="173" cy="125.5" r="1.7" fill="#fff1a8"/>
+              <line x1="294" y1="134" x2="294" y2="128" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="291" cy="128" r="1.7" fill="#f9c8d6"/>
+              <circle cx="297" cy="128" r="1.7" fill="#c7d4ff"/>
+              <circle cx="294" cy="125.5" r="1.7" fill="#ffe6a7"/>
+            </g>
+          </g>
+          <g id="bg-near-b">
+            <path d="M0 131 C30 126 56 123 86 129 C118 136 150 136 182 128 C215 120 247 121 280 129 C313 138 338 137 360 132 L360 140 L0 140 Z" fill="#b8d8b4" opacity="0.76"/>
+            <path d="M12 129 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M52 132 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M102 130 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M156 133 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M214 130 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M274 132 q4 -7 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M324 129 q4 -6 8 0" stroke="#d1e8b8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <g opacity="0.82">
+              <circle cx="26" cy="131" r="3.8" fill="#a9c99a"/>
+              <circle cx="31" cy="132" r="3.2" fill="#98bd8c"/>
+              <circle cx="35" cy="131" r="3.4" fill="#b6d7aa"/>
+              <circle cx="120" cy="133" r="3.6" fill="#a6c595"/>
+              <circle cx="124" cy="131" r="3" fill="#92b985"/>
+              <circle cx="128" cy="133" r="3.4" fill="#b3d0a4"/>
+              <circle cx="238" cy="132" r="4" fill="#a8ca9c"/>
+              <circle cx="243" cy="131" r="3.2" fill="#96bd88"/>
+              <circle cx="248" cy="133" r="3.4" fill="#b7d8aa"/>
+            </g>
+            <g opacity="0.8">
+              <line x1="76" y1="133" x2="76" y2="127" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="73" cy="127" r="1.8" fill="#f7c6d9"/>
+              <circle cx="79" cy="127" r="1.8" fill="#ffe29a"/>
+              <circle cx="76" cy="124.5" r="1.8" fill="#c9b6f2"/>
+              <line x1="173" y1="134" x2="173" y2="128" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="170" cy="128" r="1.7" fill="#ffd0b0"/>
+              <circle cx="176" cy="128" r="1.7" fill="#f8bfd0"/>
+              <circle cx="173" cy="125.5" r="1.7" fill="#fff1a8"/>
+              <line x1="294" y1="134" x2="294" y2="128" stroke="#9cbf7b" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="291" cy="128" r="1.7" fill="#f9c8d6"/>
+              <circle cx="297" cy="128" r="1.7" fill="#c7d4ff"/>
+              <circle cx="294" cy="125.5" r="1.7" fill="#ffe6a7"/>
+            </g>
+          </g>
+        </g>
         <rect x="0" y="140" width="360" height="2" fill="#0f172a"/>
 
         <!-- ===== KOČKA ===== -->
@@ -329,6 +502,17 @@
       const hiEl = document.getElementById('hi-score');
       const instructions = document.getElementById('instructions');
       const restartButton = document.getElementById('restart');
+      const soundToggle = document.getElementById('soundToggle');
+      const volumeControl = document.getElementById('volumeControl');
+      const bgFarA = document.getElementById('bg-far-a');
+      const bgFarB = document.getElementById('bg-far-b');
+      const bgNearA = document.getElementById('bg-near-a');
+      const bgNearB = document.getElementById('bg-near-b');
+      const sunEl = document.getElementById('sun');
+      const cloudEl = document.getElementById('cloud');
+      const lightningEl = document.getElementById('lightning');
+      const rainEl = document.getElementById('rain');
+      const rainbowEl = document.getElementById('rainbow');
 
       function handlePressJump(event) {
         event.preventDefault();
@@ -337,6 +521,7 @@
           reset();
           return;
         }
+        startMusic();
         jump();
       }
 
@@ -355,16 +540,25 @@
       const JUMP_VELOCITY = IS_MOBILE ? -16 : -14.5;
       const GRAVITY_ASCEND = IS_MOBILE ? 0.52 : 0.7;
       const GRAVITY_DESCEND = IS_MOBILE ? 0.86 : 1.05;
+      const BIRD_FLIGHT_LEVELS = IS_MOBILE ? [84, 78] : [86, 80, 74];
+      const MELODY = [
+        { root: 164.81, bass: 82.41, lead: 329.63, duration: 0.24, gap: 0.22 },
+        { root: 196.0, bass: 98.0, lead: 392.0, duration: 0.22, gap: 0.18 },
+        { root: 220.0, bass: 110.0, lead: 440.0, duration: 0.24, gap: 0.2 },
+        { root: 196.0, bass: 98.0, lead: 392.0, duration: 0.22, gap: 0.16 },
+        { root: 246.94, bass: 123.47, lead: 493.88, duration: 0.26, gap: 0.2 },
+        { root: 220.0, bass: 110.0, lead: 440.0, duration: 0.28, gap: 0.28 }
+      ];
 
       let running = true;
       let started = false;
       let gameOver = false;
       let score = 0;
       let hiScore = 0;
-      let speed = 155;
+      let speed = 190;
       let lastTime = performance.now();
       let spawnTimer = 0;
-      let nextSpawn = 1050;
+      let nextSpawn = 820;
       const obstacles = [];
       const keys = new Set();
       let playerY = 0;
@@ -372,6 +566,203 @@
       let playerOnGround = true;
       let playerCrouch = false;
       let runCycle = 0;
+      let birdFlapCycle = 0;
+      let backgroundScroll = 0;
+      let weatherCycle = 0;
+      let spawnHistory = ['bird'];
+      let audioCtx = null;
+      let musicStarted = false;
+      let musicTimer = null;
+      let melodyIndex = 0;
+      let masterGain = null;
+      let isMuted = false;
+      let volumeLevel = Number(volumeControl.value) / 100;
+
+      function chooseNextObstacleKind() {
+        const lastKind = spawnHistory[spawnHistory.length - 1];
+        const previousKind = spawnHistory[spawnHistory.length - 2];
+        const roll = Math.random();
+
+        if (lastKind === 'bird' && previousKind === 'bird') {
+          return 'cactus';
+        }
+
+        if (lastKind === 'cactus' && previousKind === 'cactus') {
+          return roll < 0.7 ? 'bird' : 'cactus';
+        }
+
+        if (lastKind === 'bird') {
+          return roll < 0.42 ? 'bird' : 'cactus';
+        }
+
+        if (lastKind === 'cactus') {
+          return roll < 0.58 ? 'bird' : 'cactus';
+        }
+
+        return roll < 0.5 ? 'bird' : 'cactus';
+      }
+
+      function ensureAudioContext() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          return null;
+        }
+        if (!audioCtx) {
+          audioCtx = new AudioContextClass();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = volumeLevel;
+          masterGain.connect(audioCtx.destination);
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function syncVolume() {
+        if (masterGain) {
+          masterGain.gain.setTargetAtTime(isMuted ? 0.0001 : Math.max(0.0001, volumeLevel), audioCtx.currentTime, 0.01);
+        }
+        soundToggle.textContent = isMuted ? 'Zvuk vypnut' : 'Zvuk zapnut';
+        soundToggle.setAttribute('aria-pressed', String(isMuted));
+      }
+
+      function playTone(frequency, duration, options = {}) {
+        const context = ensureAudioContext();
+        if (!context || !frequency) {
+          return;
+        }
+
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const type = options.type || 'triangle';
+        const volume = options.volume ?? 0.03;
+        const attack = options.attack ?? 0.01;
+        const release = options.release ?? 0.08;
+        const delay = options.delay ?? 0;
+        const startAt = context.currentTime + delay;
+        const endAt = startAt + duration;
+
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, startAt);
+        if (options.endFrequency) {
+          oscillator.frequency.exponentialRampToValueAtTime(options.endFrequency, endAt);
+        }
+
+        gain.gain.setValueAtTime(0.0001, startAt);
+        gain.gain.exponentialRampToValueAtTime(volume, startAt + attack);
+        gain.gain.exponentialRampToValueAtTime(0.0001, endAt + release);
+
+        oscillator.connect(gain);
+        gain.connect(masterGain);
+        oscillator.start(startAt);
+        oscillator.stop(endAt + release + 0.02);
+      }
+
+      function playChord(frequencies, duration, options = {}) {
+        frequencies.forEach((frequency, index) => {
+          playTone(frequency, duration, {
+            ...options,
+            delay: (options.delay ?? 0) + index * 0.005
+          });
+        });
+      }
+
+      function startMusic() {
+        if (musicStarted) {
+          ensureAudioContext();
+          return;
+        }
+
+        const context = ensureAudioContext();
+        if (!context) {
+          return;
+        }
+
+        musicStarted = true;
+        const playNextNote = () => {
+          const note = MELODY[melodyIndex % MELODY.length];
+          melodyIndex += 1;
+          playTone(note.bass, note.duration + 0.06, {
+            type: 'sine',
+            volume: 0.03,
+            attack: 0.012,
+            release: 0.16,
+            endFrequency: note.bass * 0.98
+          });
+          playTone(note.bass * 2, note.duration * 0.55, {
+            type: 'triangle',
+            volume: 0.012,
+            attack: 0.008,
+            release: 0.08,
+            delay: 0.01,
+            endFrequency: note.bass * 1.9
+          });
+          playChord([note.root, note.root * 1.25, note.root * 1.5], note.duration + 0.12, {
+            type: 'sine',
+            volume: 0.008,
+            attack: 0.04,
+            release: 0.24,
+            delay: 0.02
+          });
+          playTone(note.lead, note.duration * 0.75, {
+            type: 'triangle',
+            volume: 0.013,
+            attack: 0.01,
+            release: 0.09,
+            delay: 0.015,
+            endFrequency: note.lead * 1.04
+          });
+          playTone(note.lead * 1.5, 0.03, {
+            type: 'square',
+            volume: 0.006,
+            attack: 0.002,
+            release: 0.018,
+            delay: 0.08
+          });
+          playTone(note.lead * 1.8, 0.02, {
+            type: 'square',
+            volume: 0.0045,
+            attack: 0.002,
+            release: 0.015,
+            delay: 0.155
+          });
+          playTone(note.lead * 0.75, 0.11, {
+            type: 'sine',
+            volume: 0.009,
+            attack: 0.008,
+            release: 0.08,
+            delay: 0.1,
+            endFrequency: note.lead * 0.7
+          });
+
+          musicTimer = window.setTimeout(playNextNote, note.gap * 1000);
+        };
+
+        playNextNote();
+      }
+
+      function playMeow() {
+        const context = ensureAudioContext();
+        if (!context) {
+          return;
+        }
+
+        playTone(1174.66, 0.12, { type: 'triangle', volume: 0.05, attack: 0.005, release: 0.06, endFrequency: 932.33 });
+        playTone(932.33, 0.22, { type: 'triangle', volume: 0.11, attack: 0.008, release: 0.12, delay: 0.03, endFrequency: 698.46 });
+        playTone(698.46, 0.44, { type: 'sine', volume: 0.16, attack: 0.012, release: 0.24, delay: 0.08, endFrequency: 349.23 });
+        playTone(1396.91, 0.15, { type: 'sine', volume: 0.028, attack: 0.005, release: 0.08, delay: 0.05, endFrequency: 1046.5 });
+        playTone(1567.98, 0.04, { type: 'square', volume: 0.038, attack: 0.002, release: 0.03, delay: 0.18, endFrequency: 1244.51 });
+        playTone(1318.51, 0.04, { type: 'square', volume: 0.032, attack: 0.002, release: 0.03, delay: 0.24, endFrequency: 1046.5 });
+        playTone(1760, 0.035, { type: 'triangle', volume: 0.022, attack: 0.002, release: 0.02, delay: 0.3, endFrequency: 1567.98 });
+      }
+
+      function toggleSound(event) {
+        event.preventDefault();
+        ensureAudioContext();
+        isMuted = !isMuted;
+        syncVolume();
+      }
 
       function appendCactus(group, offsetX, height, palette) {
         const cactusWidth = 8 + Math.round(height / 8);
@@ -460,7 +851,7 @@
         return cactusWidth;
       }
 
-      function createObstacle() {
+      function createCactusObstacle() {
         const palettes = [
           { main: '#2f9e44', highlight: '#4ade80', shade: '#1f7a34', spine: '#14532d' },
           { main: '#16a34a', highlight: '#86efac', shade: '#166534', spine: '#14532d' },
@@ -485,28 +876,110 @@
         });
 
         return {
+          kind: 'cactus',
           element: group,
           width: Math.max(10, cursorX - (heights.length > 1 ? 5 : 0)),
-          height: maxHeight
+          height: maxHeight,
+          y: FLOOR
+        };
+      }
+
+      function createBirdObstacle() {
+        const group = document.createElementNS(SVG_NS, 'g');
+        const bottomY = BIRD_FLIGHT_LEVELS[Math.floor(Math.random() * BIRD_FLIGHT_LEVELS.length)];
+        const body = document.createElementNS(SVG_NS, 'ellipse');
+        body.setAttribute('cx', '17');
+        body.setAttribute('cy', '8');
+        body.setAttribute('rx', '8');
+        body.setAttribute('ry', '5');
+        body.setAttribute('fill', '#111111');
+
+        const head = document.createElementNS(SVG_NS, 'circle');
+        head.setAttribute('cx', '8');
+        head.setAttribute('cy', '6');
+        head.setAttribute('r', '3');
+        head.setAttribute('fill', '#111111');
+
+        const beak = document.createElementNS(SVG_NS, 'polygon');
+        beak.setAttribute('points', '5,6 0,4 4,8');
+        beak.setAttribute('fill', '#f59e0b');
+
+        const tail = document.createElementNS(SVG_NS, 'path');
+        tail.setAttribute('d', 'M26 8 l7 -4 l-4 5 l4 5 z');
+        tail.setAttribute('fill', '#111111');
+
+        const belly = document.createElementNS(SVG_NS, 'path');
+        belly.setAttribute('d', 'M11 10 q6 5 13 0');
+        belly.setAttribute('stroke', '#e5e7eb');
+        belly.setAttribute('stroke-width', '1.5');
+        belly.setAttribute('fill', 'none');
+        belly.setAttribute('stroke-linecap', 'round');
+
+        const wingLeft = document.createElementNS(SVG_NS, 'path');
+        wingLeft.setAttribute('d', 'M17 7 q8 -8 15 -4 q-8 0 -11 8');
+        wingLeft.setAttribute('fill', '#0f172a');
+        wingLeft.setAttribute('id', `bird-wing-left-${Math.random().toString(36).slice(2, 8)}`);
+
+        const wingRight = document.createElementNS(SVG_NS, 'path');
+        wingRight.setAttribute('d', 'M18 7 q2 -9 -6 -12 q2 6 -4 12');
+        wingRight.setAttribute('fill', '#1f2937');
+        wingRight.setAttribute('id', `bird-wing-right-${Math.random().toString(36).slice(2, 8)}`);
+
+        group.appendChild(tail);
+        group.appendChild(wingLeft);
+        group.appendChild(wingRight);
+        group.appendChild(body);
+        group.appendChild(head);
+        group.appendChild(beak);
+        group.appendChild(belly);
+
+        return {
+          kind: 'bird',
+          element: group,
+          width: 31,
+          height: 18,
+          y: bottomY,
+          wingLeft,
+          wingRight,
+          flapOffset: Math.random() * Math.PI * 2
         };
       }
 
       function updateObstacleElement(obstacle) {
-        obstacle.element.setAttribute('transform', `translate(${obstacle.x} 0)`);
+        if (obstacle.kind === 'bird') {
+          obstacle.element.setAttribute('transform', `translate(${obstacle.x} ${obstacle.y - obstacle.h})`);
+        } else {
+          obstacle.element.setAttribute('transform', `translate(${obstacle.x} 0)`);
+        }
+
+        if (obstacle.kind === 'bird') {
+          const flap = Math.sin(birdFlapCycle + obstacle.flapOffset) * 12;
+          obstacle.wingLeft.setAttribute('transform', `rotate(${flap} 14 7)`);
+          obstacle.wingRight.setAttribute('transform', `rotate(${-flap * 0.9} 14 7)`);
+        }
       }
 
       function spawnObstacle() {
-        const obstacleShape = createObstacle();
+        const nextKind = chooseNextObstacleKind();
+        const obstacleShape = nextKind === 'bird' ? createBirdObstacle() : createCactusObstacle();
         const obstacle = {
           x: WIDTH + 20,
-          y: FLOOR,
+          y: obstacleShape.y,
           w: obstacleShape.width,
           h: obstacleShape.height,
-          element: obstacleShape.element
+          kind: obstacleShape.kind,
+          element: obstacleShape.element,
+          wingLeft: obstacleShape.wingLeft,
+          wingRight: obstacleShape.wingRight,
+          flapOffset: obstacleShape.flapOffset || 0
         };
 
         obstaclesGroup.appendChild(obstacle.element);
         obstacles.push(obstacle);
+        spawnHistory.push(obstacle.kind);
+        if (spawnHistory.length > 3) {
+          spawnHistory.shift();
+        }
         updateObstacleElement(obstacle);
       }
 
@@ -515,15 +988,19 @@
         started = false;
         gameOver = false;
         score = 0;
-        speed = 155;
+        speed = 190;
         spawnTimer = 0;
-        nextSpawn = 1050;
+        nextSpawn = 820;
         obstacles.length = 0;
         playerY = 0;
         playerVy = 0;
         playerOnGround = true;
         playerCrouch = false;
         runCycle = 0;
+        birdFlapCycle = 0;
+        backgroundScroll = 0;
+        weatherCycle = 0;
+        spawnHistory = ['bird'];
         while (obstaclesGroup.firstChild) {
           obstaclesGroup.removeChild(obstaclesGroup.firstChild);
         }
@@ -590,7 +1067,7 @@
           spawnTimer += dt * 1000;
           if (spawnTimer > nextSpawn) {
             spawnTimer = 0;
-            nextSpawn = 900 + Math.random() * 500;
+            nextSpawn = 700 + Math.random() * 360;
             spawnObstacle();
           }
         }
@@ -607,13 +1084,18 @@
             gameOver = true;
             hiScore = Math.max(hiScore, score);
             updateStatus('Hra skončila. Stiskni R pro restart.');
+            playMeow();
           }
         }
 
         if (started && !gameOver) {
-          score += Math.floor(dt * 165);
+          score += Math.floor(dt * 210);
           announceScore();
         }
+
+        birdFlapCycle += dt * (started && !gameOver ? 16 : 8);
+        backgroundScroll += dt * (started && !gameOver ? speed : 42);
+        weatherCycle += dt * 0.06;
 
         if (started && playerOnGround && !gameOver) {
           runCycle += dt * 12;
@@ -631,6 +1113,31 @@
         frontLeg.setAttribute('transform', `translate(0 ${legOffset})`);
         backLeg.setAttribute('transform', `translate(0 ${-legOffset})`);
         tail.setAttribute('transform', `rotate(${tailSwing} 12 16)`);
+
+        const farOffset = -(backgroundScroll * 0.12 % 360);
+        const nearOffset = -(backgroundScroll * 0.24 % 360);
+        bgFarA.setAttribute('transform', `translate(${farOffset} 0)`);
+        bgFarB.setAttribute('transform', `translate(${farOffset + 360} 0)`);
+        bgNearA.setAttribute('transform', `translate(${nearOffset} 0)`);
+        bgNearB.setAttribute('transform', `translate(${nearOffset + 360} 0)`);
+
+        const weatherPhase = weatherCycle % 1;
+        const sunOpacity = weatherPhase < 0.32 ? 0.9 : weatherPhase < 0.52 ? 0.45 : 0.18;
+        const cloudOpacity = weatherPhase < 0.2 ? 0.18 : weatherPhase < 0.5 ? 0.72 : weatherPhase < 0.78 ? 0.92 : 0.28;
+        const rainOpacity = weatherPhase > 0.52 && weatherPhase < 0.76 ? 0.45 + Math.sin(birdFlapCycle * 0.7) * 0.08 : 0;
+        const rainbowOpacity = weatherPhase >= 0.76 ? Math.min(0.75, (weatherPhase - 0.76) * 3.4) : 0;
+        const stormWindow = weatherPhase > 0.56 && weatherPhase < 0.68;
+        const lightningPulse = stormWindow && Math.sin(birdFlapCycle * 3.2) > 0.92 ? 0.8 : 0;
+        const cloudX = 255 - weatherPhase * 54;
+
+        sunEl.setAttribute('opacity', String(sunOpacity));
+        cloudEl.setAttribute('opacity', String(cloudOpacity));
+        cloudEl.setAttribute('transform', `translate(${cloudX - 255} 0)`);
+        rainEl.setAttribute('opacity', String(Math.max(0, rainOpacity)));
+        rainEl.setAttribute('transform', `translate(${cloudX - 255} 0)`);
+        lightningEl.setAttribute('opacity', String(lightningPulse));
+        lightningEl.setAttribute('transform', `translate(${cloudX - 255} 0)`);
+        rainbowEl.setAttribute('opacity', String(rainbowOpacity));
       }
 
       function loop(timestamp) {
@@ -647,6 +1154,7 @@
         if (gameOver) {
           return;
         }
+        startMusic();
         if (!started) {
           started = true;
           updateStatus('Hra běží. Hodně štěstí!');
@@ -684,6 +1192,12 @@
         event.preventDefault();
         reset();
       });
+      soundToggle.addEventListener('click', toggleSound);
+      volumeControl.addEventListener('input', () => {
+        volumeLevel = Number(volumeControl.value) / 100;
+        ensureAudioContext();
+        syncVolume();
+      });
 
       gameWindow.addEventListener('click', () => {
         gameWindow.focus();
@@ -704,6 +1218,7 @@
 
       updateStatus('Stiskni mezerník pro start.');
       announceScore();
+      syncVolume();
       lastTime = performance.now();
       requestAnimationFrame(loop);
     })();

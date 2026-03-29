@@ -1,0 +1,748 @@
+﻿<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google T-Rex + kaktusy</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #f0f7ff 0%, #e8f4ff 35%, #dce9f8 100%);
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      color: #0f172a;
+    }
+
+    svg {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: calc(100vh - 180px);
+      image-rendering: pixelated;
+      shape-rendering: crispEdges;
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+      background: transparent;
+      display: block;
+    }
+
+    :root {
+      color-scheme: light;
+      color: #111827;
+      background: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .page {
+      max-width: 720px;
+      width: min(100%, 100vw);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    button {
+      border: none;
+      background: linear-gradient(135deg, #0f766e 0%, #22c55e 100%);
+      color: #ffffff;
+      font: inherit;
+      padding: 0.95rem 1.2rem;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      background: #1f2937;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    .game-frame {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin: 12px auto;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 28px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.09);
+      padding: 16px;
+    }
+
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+      color: #0f172a;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 20px;
+      padding: 14px 18px;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .status span {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.04);
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    .status strong {
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 18px;
+      color: #475569;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 960px) {
+      .page {
+        width: min(100%, 96vw);
+        padding: 16px;
+      }
+
+      .game-frame {
+        padding: 14px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .status {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px 12px;
+      }
+
+      .game-frame {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+      }
+
+      p {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main>
+      <header aria-labelledby="game-title">
+        <div>
+          <h1 id="game-title">T-Rex Runner</h1>
+          <p>Skákej přes kaktusy. Ovládání: Space nebo ↑ pro skok, ↓ pro dřep, R pro restart.</p>
+        </div>
+        <button id="restart" type="button">Restart</button>
+      </header>
+
+      <div class="game-frame">
+        <svg id="game" viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-title" aria-describedby="instructions status-message" focusable="true" tabindex="0">
+          <title id="svg-title">T-Rex běhací hra</title>
+          <desc id="svg-desc">Skákej přes kaktusy pomocí mezerníku nebo šipky nahoru; dolů pro dřep; R pro restart.</desc>
+        <rect width="360" height="160" fill="#e8f4ff"/>
+        <rect x="0" y="140" width="360" height="2" fill="#0f172a"/>
+
+        <!-- ===== T-REX ===== -->
+        <g id="player" transform="translate(40 108) scale(0.5)" fill="#111827">
+          <g transform="translate(20 8)">
+            <rect x="0" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="0" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="0" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="2" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="2" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="2" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="4" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="4" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="4" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="6" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="6" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="6" y="56" width="2" height="2" fill="#111827"/>
+            <rect x="8" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="8" y="56" width="2" height="2" fill="#111827"/>
+            <rect x="10" y="56" width="2" height="2" fill="#111827"/>
+            <rect x="10" y="58" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="58" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="28" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="28" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="26" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="26" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="8" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="10" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="12" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="14" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="16" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="56" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="60" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="60" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="58" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="60" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="18" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="26" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="26" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="26" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="28" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="28" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="30" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="34" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="32" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="38" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="36" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="12" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="40" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="20" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="22" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="24" y="54" width="2" height="2" fill="#111827"/>
+            <rect x="26" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="52" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="50" width="2" height="2" fill="#111827"/>
+            <rect x="34" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="36" y="48" width="2" height="2" fill="#111827"/>
+            <rect x="38" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="20" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="52" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="54" y="22" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="50" y="24" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="46" y="40" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="42" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="44" width="2" height="2" fill="#111827"/>
+            <rect x="44" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="42" y="46" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="56" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="58" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="60" width="2" height="2" fill="#111827"/>
+            <rect x="18" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="16" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="14" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="56" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="58" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="60" width="2" height="2" fill="#111827"/>
+            <rect x="28" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="30" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="32" y="62" width="2" height="2" fill="#111827"/>
+            <rect x="48" y="12" width="2" height="2" fill="#f8fafc"/>
+            <rect x="50" y="12" width="2" height="2" fill="#f8fafc"/>
+            <rect x="48" y="14" width="2" height="2" fill="#f8fafc"/>
+            <rect x="50" y="14" width="2" height="2" fill="#f8fafc"/>
+            <rect x="49" y="13" width="2" height="2" fill="#5a5a5a"/>
+          </g>
+        </g>
+
+        <g id="obstacles" fill="#111827"></g>
+
+        <rect x="0" y="140" width="360" height="2" fill="#5a5a5a"/>
+      </svg>
+      </div>
+      <div id="instructions" class="visually-hidden" aria-live="polite">Stiskni mezerník nebo šipku nahoru pro skok. Drž šipku dolů pro dřep. Stiskni R pro restart.</div>
+
+    <div id="status-message" class="status" role="status" aria-live="polite" aria-atomic="true">
+      <span><strong>SKÓRE</strong> <span id="score">00000</span></span>
+      <span><strong>HI</strong> <span id="hi-score">00000</span></span>
+    </div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const gameWindow = document.getElementById('game');
+      const player = document.getElementById('player');
+      const obstaclesGroup = document.getElementById('obstacles');
+      const scoreEl = document.getElementById('score');
+      const hiEl = document.getElementById('hi-score');
+      const instructions = document.getElementById('instructions');
+      const restartButton = document.getElementById('restart');
+
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const WIDTH = 360;
+      const HEIGHT = 160;
+      const FLOOR = 140;
+      const PLAYER_X = 40;
+      const PLAYER_BASE_Y = 104;
+      const PLAYER_SCREEN_X = 40;
+      const PLAYER_COLLIDE_WIDTH = 32;
+      const PLAYER_COLLIDE_HEIGHT = 28;
+      const PLAYER_BASE_TRANSFORM = `translate(${PLAYER_X} ${PLAYER_BASE_Y}) scale(0.5)`;
+
+      let running = true;
+      let started = false;
+      let gameOver = false;
+      let score = 0;
+      let hiScore = 0;
+      let speed = 120;
+      let lastTime = performance.now();
+      let spawnTimer = 0;
+      let nextSpawn = 1400;
+      const obstacles = [];
+      const keys = new Set();
+      let playerY = 0;
+      let playerVy = 0;
+      let playerOnGround = true;
+      let playerCrouch = false;
+
+      function createObstacle(height) {
+        const group = document.createElementNS(SVG_NS, 'g');
+        const body = document.createElementNS(SVG_NS, 'rect');
+        body.setAttribute('x', '0');
+        body.setAttribute('y', String(FLOOR - height));
+        body.setAttribute('width', '10');
+        body.setAttribute('height', String(height));
+        body.setAttribute('fill', '#111827');
+
+        const armLeft = document.createElementNS(SVG_NS, 'rect');
+        armLeft.setAttribute('x', '-2');
+        armLeft.setAttribute('y', String(FLOOR - height - 6));
+        armLeft.setAttribute('width', '4');
+        armLeft.setAttribute('height', '6');
+        armLeft.setAttribute('fill', '#111827');
+
+        const armRight = document.createElementNS(SVG_NS, 'rect');
+        armRight.setAttribute('x', '8');
+        armRight.setAttribute('y', String(FLOOR - height - 8));
+        armRight.setAttribute('width', '4');
+        armRight.setAttribute('height', '8');
+        armRight.setAttribute('fill', '#111827');
+
+        group.appendChild(body);
+        group.appendChild(armLeft);
+        group.appendChild(armRight);
+
+        return group;
+      }
+
+      function updateObstacleElement(obstacle) {
+        obstacle.element.setAttribute('transform', `translate(${obstacle.x} 0)`);
+      }
+
+      function spawnObstacle() {
+        const height = Math.random() > 0.6 ? 22 : 16;
+        const element = createObstacle(height);
+        const obstacle = {
+          x: WIDTH + 20,
+          y: FLOOR,
+          w: 10,
+          h: height,
+          element
+        };
+
+        obstaclesGroup.appendChild(element);
+        obstacles.push(obstacle);
+        updateObstacleElement(obstacle);
+      }
+
+      function reset() {
+        running = true;
+        started = false;
+        gameOver = false;
+        score = 0;
+        speed = 120;
+        spawnTimer = 0;
+        nextSpawn = 1400;
+        obstacles.length = 0;
+        playerY = 0;
+        playerVy = 0;
+        playerOnGround = true;
+        playerCrouch = false;
+        while (obstaclesGroup.firstChild) {
+          obstaclesGroup.removeChild(obstaclesGroup.firstChild);
+        }
+        player.setAttribute('transform', PLAYER_BASE_TRANSFORM);
+        updateStatus('Hra připravena. Stiskni mezerník pro start.');
+        announceScore();
+        lastTime = performance.now();
+        requestAnimationFrame(loop);
+      }
+
+      function updateStatus(text) {
+        instructions.textContent = text;
+      }
+
+      function announceScore() {
+        scoreEl.textContent = String(score).padStart(5, '0');
+        hiEl.textContent = String(hiScore).padStart(5, '0');
+      }
+
+      function collides(obstacle) {
+        const playerBox = {
+          x: PLAYER_SCREEN_X,
+          y: FLOOR - PLAYER_COLLIDE_HEIGHT + playerY,
+          w: PLAYER_COLLIDE_WIDTH,
+          h: PLAYER_COLLIDE_HEIGHT
+        };
+        const obstacleBox = {
+          x: obstacle.x,
+          y: obstacle.y - obstacle.h,
+          w: obstacle.w,
+          h: obstacle.h
+        };
+
+        return playerBox.x < obstacleBox.x + obstacleBox.w &&
+               playerBox.x + playerBox.w > obstacleBox.x &&
+               playerBox.y < obstacleBox.y + obstacleBox.h &&
+               playerBox.y + playerBox.h > obstacleBox.y;
+      }
+
+      function update(dt) {
+        if (!running) return;
+
+        playerCrouch = keys.has('ArrowDown') && playerOnGround;
+
+        playerVy += 0.35;
+        playerY += playerVy;
+
+        if (playerY >= 0) {
+          playerY = 0;
+          playerVy = 0;
+          playerOnGround = true;
+        } else {
+          playerOnGround = false;
+        }
+
+        playerY = Math.max(playerY, -128);
+
+        obstacles.forEach((obstacle) => {
+          obstacle.x -= speed * dt;
+          updateObstacleElement(obstacle);
+        });
+
+        if (started && !gameOver) {
+          spawnTimer += dt * 1000;
+          if (spawnTimer > nextSpawn) {
+            spawnTimer = 0;
+            nextSpawn = 1200 + Math.random() * 800;
+            spawnObstacle();
+          }
+        }
+
+        for (let i = obstacles.length - 1; i >= 0; i -= 1) {
+          const obstacle = obstacles[i];
+          if (obstacle.x + obstacle.w < -20) {
+            obstaclesGroup.removeChild(obstacle.element);
+            obstacles.splice(i, 1);
+            continue;
+          }
+          if (!gameOver && collides(obstacle)) {
+            running = false;
+            gameOver = true;
+            hiScore = Math.max(hiScore, score);
+            updateStatus('Hra skončila. Stiskni R pro restart.');
+          }
+        }
+
+        if (started && !gameOver) {
+          score += Math.floor(dt * 130);
+          announceScore();
+        }
+      }
+
+      function render() {
+        player.setAttribute('transform', `${PLAYER_BASE_TRANSFORM} translate(0 ${playerY})`);
+      }
+
+      function loop(timestamp) {
+        const dt = Math.min(0.04, (timestamp - lastTime) / 1000);
+        lastTime = timestamp;
+        update(dt);
+        render();
+        if (running) {
+          requestAnimationFrame(loop);
+        }
+      }
+
+      function jump() {
+        if (gameOver) {
+          return;
+        }
+        if (!started) {
+          started = true;
+          updateStatus('Hra běží. Hodně štěstí!');
+        }
+        if (playerOnGround) {
+          playerVy = -14;
+          playerOnGround = false;
+          updateStatus('Skáčeš!');
+        }
+      }
+
+      window.addEventListener('keydown', (event) => {
+        if (['Space', 'ArrowUp', 'ArrowDown', 'KeyR'].includes(event.code)) {
+          event.preventDefault();
+        }
+        keys.add(event.code);
+        if (event.code === 'Space' || event.code === 'ArrowUp') {
+          jump();
+        }
+        if (event.code === 'KeyR') {
+          reset();
+        }
+      });
+
+      window.addEventListener('keyup', (event) => {
+        keys.delete(event.code);
+      });
+
+      restartButton.addEventListener('click', reset);
+
+      gameWindow.addEventListener('click', () => {
+        gameWindow.focus();
+        if (gameOver) {
+          reset();
+        }
+      });
+
+      gameWindow.addEventListener('focus', () => {
+        gameWindow.style.outline = '3px solid #93c5fd';
+      });
+
+      gameWindow.addEventListener('blur', () => {
+        gameWindow.style.outline = 'none';
+      });
+
+      updateStatus('Stiskni mezerník pro start.');
+      announceScore();
+      lastTime = performance.now();
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+</html>
